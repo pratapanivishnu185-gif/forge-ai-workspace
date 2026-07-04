@@ -1,6 +1,7 @@
 export const API_BASE_URL =
-  (typeof import.meta !== "undefined" && (import.meta as { env?: { VITE_API_BASE_URL?: string } }).env?.VITE_API_BASE_URL) ||
-  "http://localhost:8080/api/v1";
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL) ||
+  "https://forgemind-l98k.onrender.com/api/v1";
+
 
 export const API_ENDPOINTS = {
   auth: {
