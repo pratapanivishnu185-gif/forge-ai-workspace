@@ -35,6 +35,15 @@ export type RegisterRequest = {
   password: string;
 };
 
+export type RegistrationResponse = {
+  userId: string;
+  email: string;
+  emailVerificationRequired: boolean;
+};
+
+export type VerifyEmailOtpRequest = { email: string; otp: string };
+export type ResendVerificationOtpRequest = { email: string };
+
 export type Workspace = {
   id: string;
   name: string;
