@@ -12,11 +12,14 @@ import type {
   Project,
   ProjectVisibility,
   RegisterRequest,
+  RegistrationResponse,
   Repository,
   RepositoryFile,
   RepositoryTreeNode,
   UpdateProjectRequest,
   User,
+  VerifyEmailOtpRequest,
+  ResendVerificationOtpRequest,
   Workspace,
   ApiResponse,
 } from "@/types";
@@ -24,9 +27,13 @@ import type {
 // AUTH
 export const authService = {
   register: async (body: RegisterRequest) =>
-    unwrap(await api.post<ApiResponse<AuthTokens>>(API_ENDPOINTS.auth.register, body)),
+    unwrap(await api.post<ApiResponse<RegistrationResponse>>(API_ENDPOINTS.auth.register, body)),
   login: async (body: LoginRequest) =>
     unwrap(await api.post<ApiResponse<AuthTokens>>(API_ENDPOINTS.auth.login, body)),
+  verifyEmailOtp: async (body: VerifyEmailOtpRequest) =>
+    unwrap(await api.post<ApiResponse<AuthTokens>>(API_ENDPOINTS.auth.verifyEmail, body)),
+  resendVerificationOtp: async (body: ResendVerificationOtpRequest) =>
+    unwrap(await api.post<ApiResponse<null>>(API_ENDPOINTS.auth.resendVerificationOtp, body)),
   logout: async (refreshToken: string) =>
     unwrap(await api.post<ApiResponse<null>>(API_ENDPOINTS.auth.logout, { refreshToken })),
   forgotPassword: async (email: string) =>

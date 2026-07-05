@@ -29,17 +29,18 @@ export const Route = createFileRoute("/register")({
 
 function RegisterPage() {
   const navigate = useNavigate();
-  const login = useAuthStore((s) => s.login);
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<Form>({
     resolver: zodResolver(schema),
   });
 
   async function onSubmit(values: Form) {
     try {
-      const tokens = await authService.register(values);
-      login(tokens.accessToken, tokens.refreshToken, tokens.user);
-      toast.success("Welcome to ForgeMind AI");
-      navigate({ to: "/app/dashboard" });
+      const result = await authService.register(values);
+      toast.success("Check your email for a 6-digit verification code");
+      navigate({
+        to: "/verify-email",
+        search: { email: result.email },
+      });
     } catch (e) {
       toast.error(apiErrorMessage(e, "Registration failed"));
     }

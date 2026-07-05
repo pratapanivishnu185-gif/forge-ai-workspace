@@ -2,6 +2,9 @@ export const API_BASE_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_BASE_URL) ||
   "https://forgemind-l98k.onrender.com/api/v1";
 
+export const BACKEND_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_BACKEND_URL) ||
+  "https://forgemind-l98k.onrender.com";
 
 export const API_ENDPOINTS = {
   auth: {
@@ -11,6 +14,8 @@ export const API_ENDPOINTS = {
     logout: "/auth/logout",
     forgotPassword: "/auth/forgot-password",
     resetPassword: "/auth/reset-password",
+    verifyEmail: "/auth/verify-email",
+    resendVerificationOtp: "/auth/resend-verification-otp",
   },
   users: {
     me: "/users/me",
