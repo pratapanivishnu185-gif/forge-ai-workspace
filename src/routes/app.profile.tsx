@@ -19,7 +19,9 @@ function ProfilePage() {
   const qc = useQueryClient();
   const setUser = useAuthStore((s) => s.setUser);
   const q = useQuery({ queryKey: ["me"], queryFn: () => userService.me() });
-  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<Form>();
+  const { register, handleSubmit, reset, watch, formState: { isSubmitting } } = useForm<Form>();
+  const avatarUrl = watch("avatarUrl");
+  const fullName = watch("fullName");
 
   useEffect(() => {
     if (q.data) {
