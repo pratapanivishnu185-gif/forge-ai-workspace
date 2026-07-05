@@ -19,6 +19,7 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as OauthCallbackRouteImport } from './routes/oauth.callback'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppProjectsRouteImport } from './routes/app.projects'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
@@ -83,6 +84,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const OauthCallbackRoute = OauthCallbackRouteImport.update({
+  id: '/oauth/callback',
+  path: '/oauth/callback',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
@@ -175,6 +181,7 @@ export interface FileRoutesByFullPath {
   '/app/profile': typeof AppProfileRoute
   '/app/projects': typeof AppProjectsRouteWithChildren
   '/app/settings': typeof AppSettingsRoute
+  '/oauth/callback': typeof OauthCallbackRoute
   '/app/': typeof AppIndexRoute
   '/app/projects/$projectId': typeof AppProjectsProjectIdRouteWithChildren
   '/app/projects/new': typeof AppProjectsNewRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/app/notifications': typeof AppNotificationsRoute
   '/app/profile': typeof AppProfileRoute
   '/app/settings': typeof AppSettingsRoute
+  '/oauth/callback': typeof OauthCallbackRoute
   '/app': typeof AppIndexRoute
   '/app/projects/new': typeof AppProjectsNewRoute
   '/app/projects': typeof AppProjectsIndexRoute
@@ -225,6 +233,7 @@ export interface FileRoutesById {
   '/app/profile': typeof AppProfileRoute
   '/app/projects': typeof AppProjectsRouteWithChildren
   '/app/settings': typeof AppSettingsRoute
+  '/oauth/callback': typeof OauthCallbackRoute
   '/app/': typeof AppIndexRoute
   '/app/projects/$projectId': typeof AppProjectsProjectIdRouteWithChildren
   '/app/projects/new': typeof AppProjectsNewRoute
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/projects'
     | '/app/settings'
+    | '/oauth/callback'
     | '/app/'
     | '/app/projects/$projectId'
     | '/app/projects/new'
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/app/notifications'
     | '/app/profile'
     | '/app/settings'
+    | '/oauth/callback'
     | '/app'
     | '/app/projects/new'
     | '/app/projects'
@@ -302,6 +313,7 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/app/projects'
     | '/app/settings'
+    | '/oauth/callback'
     | '/app/'
     | '/app/projects/$projectId'
     | '/app/projects/new'
@@ -321,6 +333,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
+  OauthCallbackRoute: typeof OauthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -394,6 +407,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/oauth/callback': {
+      id: '/oauth/callback'
+      path: '/oauth/callback'
+      fullPath: '/oauth/callback'
+      preLoaderRoute: typeof OauthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/app/settings': {
       id: '/app/settings'
@@ -563,6 +583,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VerifyEmailRoute: VerifyEmailRoute,
+  OauthCallbackRoute: OauthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
