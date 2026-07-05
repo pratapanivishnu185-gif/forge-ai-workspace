@@ -54,6 +54,26 @@ function ProfilePage() {
     <div className="max-w-2xl">
       <PageHeader title="Profile" description="Update your public profile info." />
       <Card>
+        <div className="flex items-center gap-4 mb-6">
+          {avatarUrl ? (
+            <img
+              src={avatarUrl}
+              alt={fullName || q.data?.username || "Avatar"}
+              className="h-16 w-16 rounded-full object-cover border border-border/60"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.visibility = "hidden";
+              }}
+            />
+          ) : (
+            <div className="h-16 w-16 rounded-full bg-brand grid place-items-center text-xl font-semibold text-white">
+              {(fullName || q.data?.username || "U").slice(0, 1).toUpperCase()}
+            </div>
+          )}
+          <div>
+            <div className="font-medium">{fullName || q.data?.username}</div>
+            <div className="text-sm text-muted-foreground">{q.data?.email}</div>
+          </div>
+        </div>
         <form onSubmit={handleSubmit((v) => mut.mutate(v))} className="space-y-4">
           <Field label="Username">
             <Input value={q.data?.username ?? ""} disabled />
