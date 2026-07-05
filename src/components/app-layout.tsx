@@ -113,9 +113,20 @@ export function AppLayout({ children }: { children: ReactNode }) {
             to="/app/profile"
             className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-muted/40"
           >
-            <div className="h-7 w-7 rounded-full bg-brand grid place-items-center text-xs font-semibold text-white">
-              {(user?.fullName || user?.username || "U").slice(0, 1).toUpperCase()}
-            </div>
+            {user?.avatarUrl ? (
+              <img
+                src={user.avatarUrl}
+                alt={user.fullName || user.username || "Avatar"}
+                className="h-7 w-7 rounded-full object-cover"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                }}
+              />
+            ) : (
+              <div className="h-7 w-7 rounded-full bg-brand grid place-items-center text-xs font-semibold text-white">
+                {(user?.fullName || user?.username || "U").slice(0, 1).toUpperCase()}
+              </div>
+            )}
             <span className="hidden sm:inline text-sm text-foreground">
               {user?.fullName || user?.username}
             </span>
